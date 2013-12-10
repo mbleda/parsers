@@ -19,7 +19,7 @@ import javax.xml.bind.Unmarshaller;
  */
 public class DrugbankXMLParser {
 
-    private final static String DRUGBANK_CONTEXT = "drugbank.xjc20131209";
+    public final static String DRUGBANK_CONTEXT = "drugbank.xjc20131209";
 
     public static void saveXMLInfo(Object obj, String filename) throws FileNotFoundException, JAXBException {
         JAXBContext jaxbContext;

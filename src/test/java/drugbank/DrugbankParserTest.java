@@ -1,6 +1,8 @@
 package drugbank;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import drugbank.drugbank.DrugInteraction;
+import drugbank.xjc20131209.Drugs;
 
 import java.nio.file.Paths;
 import java.util.List;
@@ -24,12 +26,16 @@ public class DrugbankParserTest {
 
         DrugbankXMLParser dxp = new DrugbankXMLParser();
 
-        Object x = dxp.loadXMLInfo(filePath);
+        Drugs drugXML = (Drugs) dxp.loadXMLInfo(filePath);
 
-//        ObjectMapper jsonMapper = new ObjectMapper();
+
+
 
         DrugbankParser dp = new DrugbankParser();
-        List<DrugInteraction> drugInteractions = dp.parse(x, species, Paths.get("/tmp/aaa.json"));
+        List<DrugInteraction> drugInteractions = dp.parse(drugXML, species, Paths.get("/tmp/aaa.json"));
+
+        ObjectMapper jsonMapper = new ObjectMapper();
+        //TODO
 
         System.out.println("Number of drug interactions: "+ drugInteractions.size());
     }
