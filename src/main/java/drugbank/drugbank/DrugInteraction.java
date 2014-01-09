@@ -8,8 +8,8 @@ package drugbank.drugbank;
  * To change this template use File | Settings | File Templates.
  */
 public class DrugInteraction {
-    private Interactor interactorA;
-    private Interactor interactorB;
+    private Drug drug;
+    private Partner partner;
     private String type;
     private String action;
 

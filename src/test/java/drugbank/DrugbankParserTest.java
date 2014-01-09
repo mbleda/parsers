@@ -4,6 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import drugbank.drugbank.DrugInteraction;
 import drugbank.xjc20131209.Drugs;
 
+import java.io.BufferedWriter;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
@@ -35,6 +38,12 @@ public class DrugbankParserTest {
         List<DrugInteraction> drugInteractions = dp.parse(drugXML, species, Paths.get("/tmp/aaa.json"));
 
         ObjectMapper jsonMapper = new ObjectMapper();
+
+        BufferedWriter bw = Files.newBufferedWriter(Paths.get("/tmp/lele.txt"), Charset.defaultCharset());
+
+        bw.write(jsonMapper.writeValueAsString(drugInteractions));
+        bw.close();
+
         //TODO
 
         System.out.println("Number of drug interactions: "+ drugInteractions.size());

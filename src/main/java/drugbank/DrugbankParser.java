@@ -1,5 +1,6 @@
 package drugbank;
 
+import drugbank.drugbank.*;
 import drugbank.drugbank.DrugInteraction;
 import drugbank.xjc20131209.*;
 
@@ -27,30 +28,111 @@ public class DrugbankParser {
         System.out.println("Number of drugs: "+ drugs.getDrug().size());
         System.out.println("Number of partners: "+ drugs.getPartners().getPartner().size());
 
-        List<PartnerType> partnertype = drugs.getPartners().getPartner();
-
         /**
          * Store all Partner Uniprot ID into a Map to speed up searching
          * Partner ID --> Uniprot ID
          */
-        Map<Integer, String> partnerTypesMap = new HashMap<Integer, String>(20000);
+        Map<Integer, PartnerType> partnersMap = new HashMap<>(20000);
         for (PartnerType partner: drugs.getPartners().getPartner()){
-            System.out.println(partner);
-//            for (IdentifiersType.ExternalIdentifier xid: partner.getExternalIdentifiers().getExternalIdentifier()){
-//                if (xid != null && xid.getResource().equalsIgnoreCase("UniProtKB")){
-//                    partnerTypesMap.put(partner.getId().intValue(), xid.getIdentifier());
-//                }
-//            }
+            partnersMap.put(partner.getId().intValue(), partner);
         }
 
-//        for (x partner:drugs.getPartners()){
-//
-//        }
+        for (DrugType dt : drugs.getDrug()){
+            Drug drug = new Drug();
+            List<XRef> xRefList = new ArrayList<>();
 
-//        DrugbankXMLParser dxp = new DrugbankXMLParser();
-//        drugbank = () dxp.loadXMLInfo("/home/mbleda/projects/2013_variability_drug_binding_proteins/1-data/drugbank/data_to_drugbank_parser/drugbank_20131209.xml");
-//
+            // ID
+            drug.setId(dt.getDrugbankId());
 
+            // Type
+            drug.setType(dt.getType());
+
+            // ATC codes
+            drug.setAtcCode(dt.getAtcCodes().getAtcCode());
+
+            // Indication
+            drug.setIndication(dt.getIndication());
+
+            // Pharmacology
+            drug.setPharmacology(dt.getPharmacology());
+
+            // Mechanism of action
+            drug.setMechanismOfAction(dt.getMechanismOfAction());
+
+            // Toxicity
+            drug.setToxicity(dt.getToxicity());
+
+            // Route of elimination
+            drug.setRouteOfElimination(dt.getRouteOfElimination());
+
+            // Volume of distribution
+            drug.setVolumeOfDistribution(dt.getVolumeOfDistribution());
+
+            // Half life
+            drug.setHalfLife(dt.getHalfLife());
+
+            // Clearance
+            drug.setClearance(dt.getClearance());
+
+            // Categories
+            drug.setCategory(dt.getCategories().getCategory());
+
+            // Groups
+            drug.setGroup(dt.getGroups().getGroup());
+
+            // Description
+            drug.setDescription(dt.getDescription());
+
+            // Absorption
+            drug.setAbsorption(dt.getAbsorption());
+
+            // Xrefs
+            xRefList.add(new XRef(dt.getDrugbankId(), "Drugbank"));
+
+            xRefList.add(new XRef(dt.getName().replaceAll("\n", ""), "name"));
+
+            for ( String sa : dt.getSecondaryAccessionNumbers().getSecondaryAccessionNumber()){
+                xRefList.add(new XRef(sa, "Drugbank Secondary Accession"));
+            }
+
+            for ( String synonym : dt.getSynonyms().getSynonym()){
+                xRefList.add(new XRef(synonym, "Synonym"));
+            }
+
+            for (IdentifiersType.ExternalIdentifier xr : dt.getExternalIdentifiers().getExternalIdentifier()){
+                xRefList.add(new XRef(xr.getIdentifier(), xr.getResource()));
+            }
+
+            for (String xr : dt.getAhfsCodes().getAhfsCode()){
+                xRefList.add(new XRef(xr, "AHFS"));
+            }
+
+            xRefList.add(new XRef(dt.getCasNumber(), "CAS number"));
+
+            for (String brand : dt.getBrands().getBrand()){
+                xRefList.add(new XRef(brand, "Brand"));
+            }
+
+            for (Manufacturer manufacturer : dt.getManufacturers().getManufacturer()){
+                xRefList.add(new XRef(manufacturer.getValue(), "Manufacturer"));
+            }
+
+            int food = (dt.getFoodInteractions().getFoodInteraction().size() != 0) ? dt.getFoodInteractions().getFoodInteraction().size() : 0;
+            if (food > 1){
+                System.out.println(dt.getFoodInteractions().getFoodInteraction());
+            }
+
+//            for (dr : dt.getManufacturers().getManufacturer()){
+//                xRefList.add(new XRef(manufacturer.getValue(), "Manufacturer"));
+//            }
+
+
+//            System.out.println(dt.getProteinBinding());
+
+//            System.out.println(drug.getId());
+            System.out.println("----------------------");
+
+        }
 
         return drugInteractions;
     }
