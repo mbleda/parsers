@@ -2,6 +2,7 @@ package drugbank;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import drugbank.drugbank.DrugInteraction;
+import drugbank.xjc20131209.DrugType;
 import drugbank.xjc20131209.Drugs;
 
 import java.io.BufferedWriter;

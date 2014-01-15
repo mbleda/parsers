@@ -26,6 +26,9 @@ public class Drug {
     private String routeOfElimination;
     private String volumeOfDistribution;
     private String clearance;
+    private List<Interactor> drugInteractor;
+    private List<Interactor> foodInteractor;
+
 
 
 
@@ -159,5 +162,21 @@ public class Drug {
 
     public void setCategory(List<String> category) {
         this.category = category;
+    }
+
+    public List<Interactor> getDrugInteractor() {
+        return drugInteractor;
+    }
+
+    public void setDrugInteractor(List<Interactor> drugInteractor) {
+        this.drugInteractor = drugInteractor;
+    }
+
+    public List<Interactor> getFoodInteractor() {
+        return foodInteractor;
+    }
+
+    public void setFoodInteractor(List<Interactor> foodInteractor) {
+        this.foodInteractor = foodInteractor;
     }
 }
