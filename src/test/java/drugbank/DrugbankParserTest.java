@@ -32,21 +32,8 @@ public class DrugbankParserTest {
 
         Drugs drugXML = (Drugs) dxp.loadXMLInfo(filePath);
 
-
-
-
         DrugbankParser dp = new DrugbankParser();
-        List<DrugInteraction> drugInteractions = dp.parse(drugXML, species, Paths.get("/tmp/aaa.json"));
+        dp.parse(drugXML, species, Paths.get("/tmp/drugbank.json"));
 
-        ObjectMapper jsonMapper = new ObjectMapper();
-
-        BufferedWriter bw = Files.newBufferedWriter(Paths.get("/tmp/lele.txt"), Charset.defaultCharset());
-
-        bw.write(jsonMapper.writeValueAsString(drugInteractions));
-        bw.close();
-
-        //TODO
-
-        System.out.println("Number of drug interactions: "+ drugInteractions.size());
     }
 }

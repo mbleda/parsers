@@ -1,5 +1,7 @@
 package drugbank.drugbank;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: mbleda
@@ -11,8 +13,50 @@ public class DrugInteraction {
     private Drug drug;
     private Partner partner;
     private String type;
-    private String action;
+    private String knownAction;
+    private List<String> action;
 
     public DrugInteraction() {
+    }
+
+    public Drug getDrug() {
+        return drug;
+    }
+
+    public void setDrug(Drug drug) {
+        this.drug = drug;
+    }
+
+    public Partner getPartner() {
+        return partner;
+    }
+
+    public void setPartner(Partner partner) {
+        this.partner = partner;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+
+    public List<String> getAction() {
+        return action;
+    }
+
+    public void setAction(List<String> action) {
+        this.action = action;
+    }
+
+    public String getKnownAction() {
+        return knownAction;
+    }
+
+    public void setKnownAction(String knownAction) {
+        this.knownAction = knownAction;
     }
 }
