@@ -28,8 +28,6 @@ public class DrugbankParser {
 
     public void parse(Drugs drugs, String species, Path outPath) throws JAXBException, IOException {
 
-        List<DrugInteraction> drugInteractions = new ArrayList();
-
         System.out.println("Number of drugs: "+ drugs.getDrug().size());
         System.out.println("Number of partners: "+ drugs.getPartners().getPartner().size());
 
@@ -53,6 +51,9 @@ public class DrugbankParser {
 
             // ID
             drug.setId(dt.getDrugbankId());
+
+            // Name
+            drug.setName(dt.getName());
 
             // Type
             drug.setType(dt.getType());
@@ -118,7 +119,7 @@ public class DrugbankParser {
             // Xrefs
             xRefList.add(new XRef(dt.getDrugbankId(), "Drugbank"));
 
-            xRefList.add(new XRef(dt.getName().replaceAll("\n", ""), "name"));
+            xRefList.add(new XRef(dt.getName(), "name"));
 
             for ( String sa : dt.getSecondaryAccessionNumbers().getSecondaryAccessionNumber()){
                 xRefList.add(new XRef(sa, "Drugbank Secondary Accession"));

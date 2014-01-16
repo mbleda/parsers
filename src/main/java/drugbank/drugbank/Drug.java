@@ -11,6 +11,7 @@ import java.util.List;
  */
 public class Drug {
     private String id;
+    private String name;
     private String type;
     private List<XRef> xrefs;
     private List<String> atcCode;
@@ -28,10 +29,6 @@ public class Drug {
     private String clearance;
     private List<Interactor> drugInteractor;
     private List<Interactor> foodInteractor;
-
-
-
-
 
     public Drug() {
     }
@@ -178,5 +175,13 @@ public class Drug {
 
     public void setFoodInteractor(List<Interactor> foodInteractor) {
         this.foodInteractor = foodInteractor;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
